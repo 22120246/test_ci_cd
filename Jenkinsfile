@@ -18,7 +18,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 // Xây dựng Docker image từ Dockerfile
-                sh 'docker build -t ${DOCKER_IMAGE} .'
+                sh 'docker build -t runandgo/${DOCKER_IMAGE}:${VERSION} .'
             }
         }
 
@@ -38,7 +38,7 @@ pipeline {
                     sh 'docker rm ${DOCKER_CONTAINER} || true'
                 }
                 // Chạy container mới
-                sh 'docker run -d --name ${DOCKER_CONTAINER} -p 5000:5000 ${DOCKER_IMAGE}'
+                sh 'docker run -d --name ${DOCKER_CONTAINER} -p 5000:5000 runandgo/${DOCKER_IMAGE}:${VERSION}'
             }
         }
     }
